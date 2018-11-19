@@ -1,0 +1,20 @@
+body {
+    background-color: #e2523d;
+}
+
+.App {
+    text-align: center;
+    color: #FFF;
+}
+
+.Welcome {
+    font-size: 54px;
+    font-weight: bold;
+}
+
+.Name {
+    padding: 25px;
+    letter-spacing: .59em;
+    font-size: 32px;
+    text-transform: uppercase;
+}
