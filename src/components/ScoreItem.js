@@ -1,13 +1,13 @@
 import React from "react";
 import faker from "faker";
 
-const ScoreItem = ({ user, date, score }) => {
+const ScoreItem = ({ onUserSelect, user, date, score }) => {
   return (
     <tr>
       <td>
         <h4 className="ui image header">
           <img alt="" src={faker.image.avatar()} className="ui rounded image" />
-          <div className="content">
+          <div onClick={() => onUserSelect(user)} className="user-item content">
             {user}
             <div className="sub header">{date}</div>
           </div>

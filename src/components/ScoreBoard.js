@@ -1,13 +1,7 @@
 import React from "react";
 import ScoreItem from "./ScoreItem";
 
-const listItems = scores => {
-  return  scores.map((data, i) => (
-    <ScoreItem key={'all'+i} user={data.username} date={data.date} score={data.score} />
-  ));
-};
-
-const ScoreBoard = ({ scores }) => {
+const ScoreBoard = ({ onUserSelect, scores }) => {
   return (
     <div className="ui card">
       <table className="ui celled table">
@@ -17,7 +11,17 @@ const ScoreBoard = ({ scores }) => {
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>{listItems(scores)}</tbody>
+        <tbody>
+          {scores.map((data, i) => (
+            <ScoreItem
+              key={"all" + i}
+              onUserSelect={onUserSelect}
+              user={data.username}
+              date={data.date}
+              score={data.score}
+            />
+          ))}
+        </tbody>
       </table>
     </div>
   );

@@ -4,12 +4,14 @@ import serverless from "../apis/serverless";
 import ScoreBoard from "./ScoreBoard";
 import ScorePanel from "./ScorePanel";
 
+const MYNAME = "Rangle Rex";
+
 class App extends React.Component {
-  state = { allscores: [], selectedUser: "Rangle Rex", myscores: [] };
+  state = { allscores: [], selectedUser: MYNAME, myscores: [] };
 
   componentDidMount() {
     this.fetchAllScores();
-    this.fetchMyScores();
+    this.fetchMyScores(this.state.selectedUser);
   }
 
   onSubmit = async score => {
@@ -19,7 +21,12 @@ class App extends React.Component {
     });
 
     this.fetchAllScores();
-    this.fetchMyScores();
+    this.fetchMyScores(this.state.selectedUser);
+  };
+
+  onUserSelect = async user => {
+    this.setState({ selectedUser: user });
+    this.fetchMyScores(user);
   };
 
   fetchAllScores = async () => {
@@ -28,10 +35,10 @@ class App extends React.Component {
     this.setState({ allscores: response.data });
   };
 
-  fetchMyScores = async () => {
+  fetchMyScores = async user => {
     const response = await serverless.get("/trex-scoreboard/me", {
       params: {
-        username: this.state.selectedUser
+        username: user
       }
     });
 
@@ -42,7 +49,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="Welcome">Welcome to Serverless!</div>
-        <div className="Name">{this.state.selectedUser}</div>
+        <div onClick={() => this.onUserSelect(MYNAME)} className="user-item Name">
+          {MYNAME}
+        </div>
         <br />
         <div className="ui container">
           <ScorePanel onSubmit={this.onSubmit} />
@@ -50,11 +59,17 @@ class App extends React.Component {
             <div className="ui row">
               <div className="eight wide column">
                 <h3 align="left">Top Scores:</h3>
-                <ScoreBoard scores={this.state.allscores} />
+                <ScoreBoard
+                  onUserSelect={this.onUserSelect}
+                  scores={this.state.allscores}
+                />
               </div>
               <div className="eight wide column">
                 <h3 align="left">My Scores:</h3>
-                <ScoreBoard scores={this.state.myscores} />
+                <ScoreBoard
+                  onUserSelect={this.onUserSelect}
+                  scores={this.state.myscores}
+                />
               </div>
             </div>
           </div>
