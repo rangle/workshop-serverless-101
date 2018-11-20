@@ -16,7 +16,7 @@ class App extends React.Component {
 
   onSubmit = async score => {
     await serverless.post("/trex-scoreboard", {
-      name: this.state.selectedUser,
+      name: MYNAME,
       score: score
     });
 
@@ -49,7 +49,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="Welcome">Welcome to Serverless!</div>
-        <div onClick={() => this.onUserSelect(MYNAME)} className="user-item Name">
+        <div
+          onClick={() => this.onUserSelect(MYNAME)}
+          className="user-item Name"
+        >
           {MYNAME}
         </div>
         <br />
