@@ -5,6 +5,11 @@ class ScorePanel extends React.Component {
 
   onFormSubmit = event => {
     event.preventDefault();
+
+    if (this.state.score >= 2000) {
+      alert("Seriously! Did you cheat?");
+    }
+
     this.props.onSubmit(this.state.score);
     this.setState({ score: "" });
   };
