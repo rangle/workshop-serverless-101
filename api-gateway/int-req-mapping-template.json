@@ -1,0 +1,4 @@
+{
+    "type": "$input.params('type')",
+    "username": "$input.params('username')"
+}

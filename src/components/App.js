@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   onSubmit = async score => {
-    await serverless.post("/trex-scoreboard", {
+    await serverless.post("", {
       name: MYNAME,
       score: score
     });
@@ -30,13 +30,13 @@ class App extends React.Component {
   };
 
   fetchAllScores = async () => {
-    const response = await serverless.get("/trex-scoreboard/all");
+    const response = await serverless.get("/all");
 
     this.setState({ allscores: response.data });
   };
 
   fetchMyScores = async user => {
-    const response = await serverless.get("/trex-scoreboard/me", {
+    const response = await serverless.get("/me", {
       params: {
         username: user
       }

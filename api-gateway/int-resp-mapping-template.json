@@ -1,0 +1,13 @@
+#set($inputRoot = $input.path('$'))
+[
+## Loop create new array from input json
+## See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
+#foreach($elem in $inputRoot.body)
+ {
+  "score" : $elem.score,
+  "date" : "$elem.date",
+  "username" : "$elem.username"
+} 
+#if($foreach.hasNext),#end
+#end
+]
