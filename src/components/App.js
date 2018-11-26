@@ -17,7 +17,7 @@ class App extends React.Component {
   onSubmit = async score => {
     await serverless.post("", {
       name: MYNAME,
-      score: score.toString()
+      score: score
     });
 
     this.fetchAllScores();

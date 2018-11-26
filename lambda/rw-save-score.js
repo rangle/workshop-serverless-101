@@ -25,7 +25,7 @@ exports.handler = async (event) => {
                 S: event.name
             },
             "score": {
-                N: event.score,
+                N: event.score.toString(),
             },
             "date": {
                 S: today()
