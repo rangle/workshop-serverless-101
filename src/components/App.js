@@ -17,7 +17,7 @@ class App extends React.Component {
   onSubmit = async score => {
     await serverless.post("", {
       name: MYNAME,
-      score: score
+      score: score.toString()
     });
 
     this.fetchAllScores();
@@ -68,7 +68,6 @@ class App extends React.Component {
                 />
               </div>
               <div className="eight wide column">
-                <h3 align="left">My Scores:</h3>
                 <ScoreBoard
                   onUserSelect={this.onUserSelect}
                   scores={this.state.myscores}

@@ -1,32 +1,39 @@
 import React from "react";
 
 class ScorePanel extends React.Component {
-  state = { score: "" };
+  state = { score: "0" };
 
   onFormSubmit = event => {
-    event.preventDefault();
+    const score = this.lookupScore();
 
-    if (this.state.score >= 2000) {
-      alert("Seriously! Did you cheat?");
+    if (score > this.state.score) {
+      this.setState({ score });
+      this.props.onSubmit(score);
     }
+  };
 
-    this.props.onSubmit(this.state.score);
-    this.setState({ score: "" });
+  lookupScore = () => {
+    return (
+      window.Runner.instance_ &&
+      window.Runner.instance_.distanceMeter.getActualDistance(
+        Math.ceil(window.Runner.instance_.distanceRan)
+      )
+    );
   };
 
   render() {
     return (
       <div className="ui segment">
-        <form onSubmit={this.onFormSubmit} className="ui form">
-          <div className="field">
-            <label>Submit Score:</label>
-            <input
-              type="text"
-              value={this.state.score}
-              onChange={e => this.setState({ score: e.target.value })}
-            />
-          </div>
-        </form>
+        <h3>
+          <font color="black">{"High Score: " + this.state.score}</font>
+        </h3>
+        <div className="button">
+          <input
+            onClick={this.onFormSubmit}
+            type="submit"
+            value={"Submit Score"}
+          />
+        </div>
       </div>
     );
   }
