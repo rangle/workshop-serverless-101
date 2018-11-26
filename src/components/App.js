@@ -9,9 +9,11 @@ const MYNAME = "Rangle Rex";
 class App extends React.Component {
   state = { allscores: [], selectedUser: MYNAME, myscores: [] };
 
-  componentDidMount() {
-    this.fetchAllScores();
-    this.fetchMyScores(this.state.selectedUser);
+  async componentDidMount() {
+    await Promise.all([
+      this.fetchAllScores(),
+      this.fetchMyScores(this.state.selectedUser)
+    ]);
   }
 
   onSubmit = async score => {
@@ -20,8 +22,10 @@ class App extends React.Component {
       score: score
     });
 
-    this.fetchAllScores();
-    this.fetchMyScores(this.state.selectedUser);
+    await Promise.all([
+      this.fetchAllScores(),
+      this.fetchMyScores(this.state.selectedUser)
+    ]);
   };
 
   onUserSelect = async user => {
@@ -68,6 +72,7 @@ class App extends React.Component {
                 />
               </div>
               <div className="eight wide column">
+                <h3 align="left">My Scores:</h3>
                 <ScoreBoard
                   onUserSelect={this.onUserSelect}
                   scores={this.state.myscores}
