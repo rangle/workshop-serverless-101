@@ -7,6 +7,11 @@ class ScorePanel extends React.Component {
     const score = this.lookupScore();
 
     if (score > this.state.score) {
+
+      if (score >= 2000) {
+        alert("Seriously! Did you cheat?");
+      }
+
       this.setState({ score });
       this.props.onSubmit(score);
     }
@@ -29,6 +34,7 @@ class ScorePanel extends React.Component {
         </h3>
         <div className="button">
           <input
+            className="ui primary button"
             onClick={this.onFormSubmit}
             type="submit"
             value={"Submit Score"}
